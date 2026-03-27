@@ -24,7 +24,7 @@ La aplicación está diseñada para proporcionar una experiencia completa y flui
 
 </p>
 
-##🔧 Tecnologías y Herramientas Utilizadas:
+🔧 ##Tecnologías y Herramientas Utilizadas:
 **Selenium WebDriver**
 Automatización de pruebas web
 **Python**
@@ -34,7 +34,7 @@ Framework de pruebas
 **Chrome WebDriver**
 Navegador para ejecución de pruebas
 
-##📋 Funcionalidades Probadas:
+📋## Funcionalidades Probadas:
 **Configuración de Rutas:**
 
 - Ingreso de direcciones "Desde" y "Hasta"
@@ -66,14 +66,14 @@ Navegador para ejecución de pruebas
 - Flujo completo de solicitud de servicio
 
 
-##🎯 Tipos de Pruebas Implementadas:
+##🎯##Tipos de Pruebas Implementadas:
 - Pruebas de Interfaz de Usuario (UI)
 - Pruebas de Funcionalidad
 - Pruebas de Integración
 - Pruebas de Flujo de Usuario End-to-End
 
 
-📊 Cobertura de Pruebas:
+📊## Cobertura de Pruebas:
 - Interacción con elementos de formulario
 - Validación de campos obligatorios
 - Flujos de navegación entre pantallas

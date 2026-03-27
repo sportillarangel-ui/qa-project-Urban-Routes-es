@@ -8,19 +8,7 @@ from data.data import message_for_driver
 from helpers import utilities
 
 
-"""
-paso 1. localiza el elemento.
-        nombre_del_elemento_tipo
-        
-paso 2. Crear un Getter. crear un nuevo método para tomar el elemento. Nombre de la función 
-        def get_nombre_del_elemento():
-        NOTA: un getter SIEMPRE retorna el elemento. return
 
-paso 3. Definir la acción que quiero y puedo hacer con el elemento
-        setter -> Escribir -> escribir en los elementos que son campos de texto (inputs) y text area
-        clickers -> dar click -> da click a botones y links 
-        Readers -> lee -> puede leer las propiedades de los elementos  get_property('value')
-"""
 
 
 class UrbanRoutesPage:

@@ -2,7 +2,6 @@ from selenium.webdriver.common import keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
-import time
 from data import data
 from data.data import message_for_driver
 from helpers import utilities
@@ -34,6 +33,7 @@ class UrbanRoutesPage:
     card_number_field = (By.ID, 'number')
     card_code_field = (By.NAME, 'code')  # Campo CVV - ¡importante!
     submit_card_button = (By.XPATH, "//div[contains(@class,'section active')]//button[text()='Agregar']")
+    added_card_label = (By.CLASS_NAME, "pp-value-text")
     close_payment_modal = (By.XPATH, '//div[@class="section active"]/button[@class="close-button section-close"]')
 
 
@@ -44,9 +44,11 @@ class UrbanRoutesPage:
     requirement_arrow = (By.XPATH, '//input[@class="switch-input"]')
     blanket_tissue_slider =(By.XPATH, '//span[@class="slider round"]')
 
+
     #ice cream
     ice_cream_bucket = (By.XPATH, "//div[@class='r-counter-label' and text()='Helado']")
     ice_cream_plus = (By.XPATH, "//div[@class='counter-plus' and text()='+']")
+    ice_cream_count = (By.XPATH, '//div[@class="counter-value"]')
 
     #Modal order taxi
     smart_button_taxi = (By.XPATH, '//span[@class="smart-button-main"]')
@@ -163,10 +165,20 @@ class UrbanRoutesPage:
             EC.visibility_of_element_located(self.card_number_field)
         ).send_keys(data.card_number)
 
+    def get_card_number_value(self):
+        return self.wait.until(
+            EC.visibility_of_element_located(self.card_number_field)
+        ).get_attribute("value")
+
     def set_card_code_field(self):
         self.wait.until(
             EC.visibility_of_element_located(self.card_code_field)
         ).send_keys(data.card_code)
+
+    def get_card_code_value(self):
+        return self.wait.until(
+            EC.visibility_of_element_located(self.card_code_field)
+        ).get_attribute("value")
 
     def set_key_tab(self):
         self.wait.until(
@@ -177,6 +189,11 @@ class UrbanRoutesPage:
         return self.wait.until(
             EC.element_to_be_clickable(self.submit_card_button)
         ).click()
+
+    def is_card_added(self):
+        return self.wait.until(
+            EC.visibility_of_element_located(self.added_card_label)
+        ).text
 
     def click_close_modal(self):
         self.wait.until(EC.presence_of_all_elements_located(self.close_payment_modal))[1].click()
@@ -202,19 +219,20 @@ class UrbanRoutesPage:
             EC.element_to_be_clickable(self.blanket_tissue_slider)
         ).click()
 
-    #Ice cream
+    def get_checked_blanket_and_tissues(self):
+        return self.wait.until(EC.presence_of_all_elements_located(self.requirement_arrow))[0]
 
-    def get_ice_cream_bucket(self):
-        return self.wait.until(
-            EC.visibility_of_element_located(self.ice_cream_bucket)
-        )
+    #Ice cream (CORRECCIÓN: Corregir la lógica de set_two_ice_creams. En pages/urban_routes_page.py el click queda fuera del for, así que en la práctica no garantiza dos clics.)
 
-    def set_two_ice_creams(self):
-        for _ in range(2):
-            button = self.wait.until(
-            EC.presence_of_element_located(self.ice_cream_plus)
-        )
-        self.driver.execute_script("arguments[0].click();", button)
+    def get_ice_cream_count(self):
+        return self.wait.until(EC.visibility_of_all_elements_located(self.ice_cream_count))[0]
+
+
+    def click_on_ice_cream(self, cnt):
+        for n in range(cnt):
+            self.wait.until(
+                EC.visibility_of_all_elements_located(self.ice_cream_plus)
+            )[0].click()
 
 
     #Order Taxi Button

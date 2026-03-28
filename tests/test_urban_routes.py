@@ -44,20 +44,28 @@ class TestUrbanRoutes:
         self.routes_page.get_payment_method_button()
         self.routes_page.click_add_card_button()
         self.routes_page.set_card_number_field()
+        assert self.routes_page.get_card_number_value() == data.card_number
+
         self.routes_page.set_card_code_field()
+        assert self.routes_page.get_card_code_value() == data.card_code
+
         self.routes_page.set_key_tab()
         self.routes_page.click_submit_button()
+        assert self.routes_page.is_card_added()
         self.routes_page.click_close_modal()
 
     def test_message(self):
         message = data.message_for_driver
         self.routes_page.set_message()
+        assert self.routes_page.get_message().get_property('value') == message
 
     def test_blanket_and_tissues(self):
         self.routes_page.click_on_blanket_slider()
+        assert self.routes_page.get_checked_blanket_and_tissues().get_property('checked') == True
 
-    def test_add_two_ice_creams(self):
-        self.routes_page.set_two_ice_creams()
+    def test_add_two_ice_creams(self):   #corregido
+        self.routes_page.click_on_ice_cream(2)
+        assert self.routes_page.get_ice_cream_count().text == "2"
 
     def test_order_taxi(self):
         self.routes_page.click_on_smart_button()
